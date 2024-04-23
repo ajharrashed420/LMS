@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LeadController extends Controller
 {
@@ -10,7 +11,15 @@ class LeadController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
+    {   
+        $user = Auth::user();
+        $check = $user->hasPermissionTo('lead-management');
+
+        if (!$check) {
+            flash()->addError('There was an issue unlocking your account.');
+            return redirect()->route('dashboard');
+        }
+        
         return view('lead.index');
     }
 

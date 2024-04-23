@@ -1,5 +1,5 @@
 <div>
-    <table class="w-full table-auto">
+    <table class="w-full table-auto ">
         <tr> 
             <th class="border px-4 py-2 text-left bg-green-600 text-white">Name</th>
             <th class="border px-4 py-2 text-left  bg-green-600 text-white">Email</th>
