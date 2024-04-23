@@ -3,7 +3,10 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Lead;
 use App\Models\User;
+use App\Models\Course;
+use App\Models\Curriculum;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -15,26 +18,49 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        //Creating SuperAdmin User
-        $user = new User();
-        $user->name = 'Super Admin';
-        $user->email = 'super@admin.com';
-        $user->password = bcrypt('password');
-        $user->save();
+
+        $this->create_user_with_role('Super Admin', 'Super Admin', 'super-admin@lms.test');
+        $this->create_user_with_role('Communication', 'Communication Team', 'communication@lms.test');
+        $teacher = $this->create_user_with_role('Teacher', 'Teacher', 'teacher@lms.test');
+        $this->create_user_with_role('Leads', 'Leads', 'leads@lms.test');
+
+        //Lead factory
+        Lead::factory()->count(100)->create();
+
+        //Creeate 1 course
+         $course = Course::create([
+            'name' => 'Laravel',
+            'description' => 'Laravel is a web application framework with expressive, elegant syntax. We’ve already laid the foundation — freeing you to create without sweating the small things.',
+            'image' => 'https://laravel.com/img/logomark.min.svg',
+            'user_id' => $teacher->id
+        ]);
+
+        //Create curriculums
+        Curriculum::factory()->count(10)->create();
+
+    }
 
 
-        //Creating Role
+    private function create_user_with_role($type, $name, $email) {
         $role = Role::create([
-            'name' => 'Super Admin'
+            'name' => $type
         ]);
 
-        //Create Permission
-        $permission = Permission::create([
-            'name' => 'create-admin'
+        $user = User::create([
+            'name' => $name,
+            'email' => $email,
+            'password' => bcrypt('password')
         ]);
 
-        $role->givePermissionTo($permission);
-        $permission->assignRole($role);
+        if($type == 'Super Admin') {
+            $permission = Permission::create([
+                'name' => 'create-admin'
+            ]);
+            $role->givePermissionTo($permission);
+        }
 
+        $user->assignRole($role);
+
+        return $user;
     }
 }

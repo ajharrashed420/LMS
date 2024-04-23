@@ -21,7 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('link');
             $table->timestamps();
 
-            $table->foreign('curriculum_id')->references('id')->on('curriculams')->onDelete('cascade');
+            $table->foreign('curriculum_id')->references('id')->on('curricula')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('exam_id')->references('id')->on('exams')->onDelete('cascade');
             
