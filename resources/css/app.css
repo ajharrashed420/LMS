@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+@layer components {
+    .lms-label {
+        @apply uppercase block mb-2 text-xs font-bold text-gray-700;
+    }
+
+    .lms-input { 
+        @apply w-full rounded border border-gray-300 text-gray-600;
+    }
+
+
+    .lms-button {
+        @apply rounded border border-green-300 bg-green-600 text-white py-2 px-4 my-2;
+    }
+}

@@ -12,13 +12,8 @@ class LeadController extends Controller
      */
     public function index()
     {   
-        $user = Auth::user();
-        $check = $user->hasPermissionTo('lead-management');
+        permission_check('lead-management');
 
-        if (!$check) {
-            flash()->addError('There was an issue unlocking your account.');
-            return redirect()->route('dashboard');
-        }
         
         return view('lead.index');
     }
@@ -52,7 +47,9 @@ class LeadController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('lead.edit', [
+            'lead_id' => $id
+        ]);
     }
 
     /**
