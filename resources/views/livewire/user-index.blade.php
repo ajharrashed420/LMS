@@ -19,7 +19,7 @@
                         @include('components.icons.edit')
                         </a>
 
-                        <form onsubmit="return confirm('Are you sure?');" action="" wire:submit.prevent="leadDelete({{$user->id}})">
+                        <form onsubmit="return confirm('Are you sure?');" action="" wire:submit.prevent="userDelete({{$user->id}})">
                             <button  type="submit"> @include('components.icons.trash')</button>
                         </form>
                     </div>

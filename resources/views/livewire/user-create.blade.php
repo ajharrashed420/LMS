@@ -30,7 +30,7 @@
         </div>
         <select wire:model="role"> 
                 <option value=""> Select Role</option>
-            @foreach ($roles as $role)
+            @foreach ($roles as $role) 
                 <option value="{{$role->name}}">{{$role->name}}</option>
             @endforeach
         </select>
