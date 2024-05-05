@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LeadController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdmissionController;
 
@@ -35,6 +36,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('role', RoleController::class);
 
     Route::get('/admission', [AdmissionController::class, 'index'])->name('admission');
+    Route::get('/invoices', [InvoiceController::class, 'index'])->name('invoice-index');
+    Route::get('/invoice-show/{id}', [InvoiceController::class, 'showInvoice'])->name('invoice-show');
 });
 
 require __DIR__.'/auth.php';

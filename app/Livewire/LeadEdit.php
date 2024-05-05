@@ -60,7 +60,7 @@ class LeadEdit extends Component
         $note->lead_id = $this->lead_id;
         $note->save();
 
-        $this->note ='';
+        $note =null;
 
         flash()->addSuccess('Your account has been re-verified.');
     }
