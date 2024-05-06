@@ -16,6 +16,10 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
+                    <x-nav-link :href="route('course.index')" :active="request()->routeIs('course.index')">
+                        {{ __('Course') }}
+                    </x-nav-link>
+
                     <x-nav-link :href="route('admission')" :active="request()->routeIs('admission')">
                         {{ __('Admission') }}
                     </x-nav-link>

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->string('image');
+            $table->string('image')->default('https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png');
             $table->unsignedBigInteger('user_id');
             $table->float('price')->default(0);
             $table->timestamps();
