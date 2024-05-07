@@ -14,30 +14,32 @@ class InvoiceController extends Controller
         return view('invoice.index');
     }
 
-    public function showInvoice($id) {
-        $DBinvoice = Invoice::findOrFail($id);
+    public function showInvoice(string $id) {
+        //$DBinvoice = Invoice::findOrFail($id);
 
-        $customer = new Buyer([
-            'name'   => $DBinvoice->user->name,
-            'custom_fields' => [
-                'email' => $DBinvoice->user->email,
-            ],
-        ]);
+        return view('invoice.show');
+
+        // $customer = new Buyer([
+        //     'name'   => $DBinvoice->user->name,
+        //     'custom_fields' => [
+        //         'email' => $DBinvoice->user->email,
+        //     ],
+        // ]);
     
-        $items = [];
+        // $items = [];
 
-        foreach ($DBinvoice->items as $item) {
-            $items[] = InvoiceItem::make($item->name)->pricePerUnit($item->price);
-        }
+        // foreach ($DBinvoice->items as $item) {
+        //     $items[] = InvoiceItem::make($item->name)->pricePerUnit($item->price);
+        // }
 
 
-        $invoice = \LaravelDaily\Invoices\Invoice::make()
-            ->buyer($customer)
-            ->addItems($items)
-            ->currencySymbol('$')
-            ->currencyCode('USD');
+        // $invoice = \LaravelDaily\Invoices\Invoice::make()
+        //     ->buyer($customer)
+        //     ->addItems($items)
+        //     ->currencySymbol('$')
+        //     ->currencyCode('USD');
 
-        return $invoice->stream();
+        // return $invoice->stream();
     
     
     

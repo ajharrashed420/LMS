@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Note;
+use App\Models\Course;
 use App\Models\Homework;
 use App\Models\Attendance;
 use Illuminate\Database\Eloquent\Model;
@@ -28,5 +30,13 @@ class Curriculum extends Model
 
     public function attendances() {
         return $this->hasMany(Attendance::class);
+    }
+ 
+    public function notes() {
+        return $this->belongsToMany(Note::class, 'curriculum_note', 'curriculum_id', 'note_id');
+    }
+
+    public function course() {
+        return $this->belongsTo(Course::class);
     }
 }
