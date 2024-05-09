@@ -21,13 +21,13 @@ class CourseCreate extends Component
     public $end_date;
 
     public $days = [
-        'sunday',
-        'monday',
-        'tuesday',
-        'wednesday',
-        'thursday',
-        'friday',
-        'saturday',
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday'
     ];
 
     protected $rules = [
@@ -46,15 +46,6 @@ class CourseCreate extends Component
 
    public function formSubmit()
     {
-        $this->validate();
-        $course = Course::create([
-            'name' => $this->name,
-            'slug' => str_replace(' ', '-', $this->name),
-            'description' => $this->description,
-            'price' => $this->price,
-            'user_id' => Auth::user()->id
-        ]);
-
         // check how many sunday available
         $i = 1;
         $start_date = new DateTime(Carbon::now());
@@ -63,22 +54,38 @@ class CourseCreate extends Component
         $date_range = new DatePeriod($start_date, $interval, $endDate);
         foreach ($date_range as $date) {
             foreach ($this->selectedDays as $day) {
-                if ($date->format("l") == $day) {
-                    Curriculum::create([
+                if ($date->format("l") === $day) {
+
+                    //To Create Course 
+                    $this->validate();
+                    $course = Course::create([
+                        'name' => $this->name,
+                        'slug' => str_replace(' ', '-', $this->name),
+                        'description' => $this->description,
+                        'price' => $this->price,
+                        'user_id' => Auth::user()->id
+                    ]);
+
+                    //Create Curriculums with check how many sunday available
+                    $curriculum = Curriculum::create([
                         'name' => $this->name . ' #' . $i++,
                         'week_day' => $day,
                         'class_time' => $this->time,
                         'end_date' => $this->end_date,
                         'course_id' => $course->id,
                     ]);
+                    
+                    flash()->addSuccess('Course created successfully');
+                    return redirect()->route('course.index');
+                    
+                }else {
+                    flash()->addError('Course not created!');
+                    return false;
                 }
             }
         }
         $i++;
 
-        flash()->addSuccess('Course created successfully');
-
-        return redirect()->route('course.index');
     }
 
 }
