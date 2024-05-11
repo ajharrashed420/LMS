@@ -21,4 +21,11 @@ class CourseController extends Controller
             'course_id' => $id,
         ]);
     }
+
+    public function edit(string $id)
+    {
+        return view('course.edit', [
+            'id' => $id,
+        ]);
+    }
 }

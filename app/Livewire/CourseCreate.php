@@ -19,6 +19,8 @@ class CourseCreate extends Component
     public $selectedDays = [];
     public $time;
     public $end_date;
+    
+    
 
     public $days = [
         'Sunday',

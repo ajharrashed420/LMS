@@ -14,4 +14,13 @@ class CourseIndex extends Component
             'courses' => $course,
         ]);
     }
+
+
+    
+    public function courseDelete($id) {
+        $course = Course::findOrFail($id);
+        flash()->addSuccess('You have deleted!');
+        $course->delete();
+
+    }
 }
