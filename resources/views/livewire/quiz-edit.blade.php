@@ -7,7 +7,7 @@
                 <th class="border px-4 py-2  bg-green-600 text-white w-10">Actions</th>
             </tr>
 
-                @foreach ($quiz_questions->questions as $item)
+                @foreach ($quiz->questions as $item)
                 <tr>
                     <td class="border px-4 py-2"> {{$item->name}} </td>
                     <td class="border px-4 py-2 text-center w-10"> 
@@ -23,6 +23,7 @@
    
 
 
+    @if (count($questions) > 0)
     <h2 class="font-bold mb-4">Add Question</h2>
     <form wire:submit.prevent="addQuestion">
         <div class="mb-4">
@@ -38,4 +39,7 @@
 
         @include('components.icons.loading-btn')
     </form>
+    @else
+        <h2 class="font-bold text-red-600 my-10 text-center">Qustions not available  to add!</h2>
+    @endif
 </div>

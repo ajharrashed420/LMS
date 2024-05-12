@@ -16,5 +16,6 @@ class QuestionIndex extends Component
 
     public function deleteQuestion($id) {
         Question::where('id', $id)->delete();
+        flash()->addSuccess('Question has been deleted!');
     }
 }
