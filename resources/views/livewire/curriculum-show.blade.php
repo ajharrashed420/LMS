@@ -22,10 +22,14 @@
                 <td class="border px-4 py-2">
                     <div class="flex items-center justify-center gap-4">
                         @if ($student->is_present($curriculum->id))
-                            Present
+                            <span class="py-1 px-3 rounded bg-gray-500 text-white"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                            </svg></span>
+
                         @else
                             <button wire:click="attendance({{$student->id}})" class="py-1 px-3 rounded bg-green-500 text-white">Present</button>
                         @endif
+                        <button wire:click="absent({{$student->id}})" class="py-1 px-3 rounded bg-red-500 text-white">Absent</button>
                     </div>
                 </td>
             </tr>

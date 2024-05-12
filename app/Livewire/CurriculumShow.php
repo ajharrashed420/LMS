@@ -44,6 +44,8 @@ class CurriculumShow extends Component
         flash()->addSuccess('This user present!');
     }
 
-
+    public function absent($id) {
+       $attendance = Attendance::where('user_id', $id)->delete();
+    }
 
 }

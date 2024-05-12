@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Livewire;
+use Livewire\WithPagination;
 
 use App\Models\Course;
 use Livewire\Component;
 
 class CourseIndex extends Component
-{
+{ use WithPagination;
     public function render()
     {   
         $course = Course::paginate(10);
