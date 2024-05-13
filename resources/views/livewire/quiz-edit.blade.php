@@ -1,5 +1,5 @@
 <div>
-    <h2 class="font-bold mb-4">Questions of <span class="text-red-500">{{$quiz->name}}</span></h2>
+    <h2 class="font-bold mb-4">Questions</h2>
    
         <table class="w-full table-auto mb-4">
             <tr> 

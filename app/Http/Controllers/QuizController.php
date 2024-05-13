@@ -21,6 +21,12 @@ class QuizController extends Controller
         return redirect()->route('quiz.show', $quiz->id);
     }
 
+    public function edit(Quiz $quiz) {
+        return view('quiz.edit', [
+            'id' => $quiz
+        ]);
+    }
+
     public function show(Quiz $quiz) {
         return view('quiz.show', [
             'id' => $quiz

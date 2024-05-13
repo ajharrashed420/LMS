@@ -25,7 +25,7 @@ class QuizEdit extends Component
         $this->quiz->questions()->attach($this->question_id);
         flash()->addSuccess('Question added successfully!');
 
-        return redirect()->route('quiz.show', $this->quiz->id);
+        return redirect()->route('quiz.edit', $this->quiz->id);
     }
 
     public function questionDelete($id) {
