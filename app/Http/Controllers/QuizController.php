@@ -18,7 +18,7 @@ class QuizController extends Controller
         $quiz = Quiz::create([
             'name' => $request->name,
         ]);
-        return redirect()->route('quiz.show', $quiz->id);
+        return redirect()->route('quiz.edit', $quiz->id);
     }
 
     public function edit(Quiz $quiz) {

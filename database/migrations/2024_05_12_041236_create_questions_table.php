@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('answer_c');
             $table->string('answer_d');
             $table->string('correct_answer');
+            $table->string('answered')->nullable();
             $table->timestamps();
         });
     }
