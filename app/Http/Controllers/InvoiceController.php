@@ -14,10 +14,12 @@ class InvoiceController extends Controller
         return view('invoice.index');
     }
 
-    public function showInvoice(string $id) {
+    public function edit(string $id) {
         //$DBinvoice = Invoice::findOrFail($id);
 
-        return view('invoice.show');
+        return view('invoice.edit', [
+            'id' => $id
+        ]);
 
         // $customer = new Buyer([
         //     'name'   => $DBinvoice->user->name,

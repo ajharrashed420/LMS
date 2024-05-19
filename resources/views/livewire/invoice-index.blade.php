@@ -21,11 +21,11 @@
                 <td class="border px-4 py-2 text-center"> 
                     
                     <div class="flex justify-center gap-4">
-                        <a href="">
+                        <a href="{{route('invoice-edit', $item->id)}}">
                         @include('components.icons.edit')
                         </a>
 
-                        <a href="{{route('invoice-show', $item->id)}}">
+                        <a href="#">
                         @include('components.icons.eye')
                         </a>
 
