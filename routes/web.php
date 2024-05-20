@@ -11,6 +11,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\AdmissionController;
 use App\Http\Controllers\CurriculumController;
+use App\Http\Controllers\StripePaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,5 +51,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('quiz', QuizController::class);
     
 });
+
+//Stripe Payment Controller
+Route::post('stripe', [StripePaymentController::class, 'stripePayment'])->name('stripe');
+Route::get('success', [StripePaymentController::class, 'success'])->name('success');
+Route::get('cancel', [StripePaymentController::class, 'cancel'])->name('cancel');
 
 require __DIR__.'/auth.php';

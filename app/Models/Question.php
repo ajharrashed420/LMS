@@ -19,7 +19,7 @@ class Question extends Model
             'correct_answer',
     ];
 
-        public function questions() {
+    public function questions() {
         return $this->belongsToMany(Question::class, 'quiz_question', 'quiz_id', 'question_id');
     }
 }

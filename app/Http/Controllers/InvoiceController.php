@@ -18,7 +18,7 @@ class InvoiceController extends Controller
         //$DBinvoice = Invoice::findOrFail($id);
 
         return view('invoice.edit', [
-            'id' => $id
+            'invoice' => Invoice::findOrFail($id)
         ]);
 
         // $customer = new Buyer([
