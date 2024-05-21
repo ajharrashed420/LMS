@@ -25,7 +25,7 @@
                         @include('components.icons.edit')
                         </a>
 
-                        <a href="#">
+                        <a href="{{route('invoice-show', $item->id)}}">
                         @include('components.icons.eye')
                         </a>
 

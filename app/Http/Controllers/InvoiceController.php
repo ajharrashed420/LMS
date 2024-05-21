@@ -15,43 +15,36 @@ class InvoiceController extends Controller
     }
 
     public function edit(string $id) {
-        //$DBinvoice = Invoice::findOrFail($id);
-
         return view('invoice.edit', [
             'invoice' => Invoice::findOrFail($id)
         ]);
-
-        // $customer = new Buyer([
-        //     'name'   => $DBinvoice->user->name,
-        //     'custom_fields' => [
-        //         'email' => $DBinvoice->user->email,
-        //     ],
-        // ]);
-    
-        // $items = [];
-
-        // foreach ($DBinvoice->items as $item) {
-        //     $items[] = InvoiceItem::make($item->name)->pricePerUnit($item->price);
-        // }
-
-
-        // $invoice = \LaravelDaily\Invoices\Invoice::make()
-        //     ->buyer($customer)
-        //     ->addItems($items)
-        //     ->currencySymbol('$')
-        //     ->currencyCode('USD');
-
-        // return $invoice->stream();
-    
-    
-    
     }
 
+    public function show(string $id) {
+
+        $DBinvoice = Invoice::findOrFail($id);
+
+        $customer = new Buyer([
+            'name'   => $DBinvoice->user->name,
+            'custom_fields' => [
+                'email' => $DBinvoice->user->email,
+            ],
+        ]);
+    
+        $items = [];
+
+        foreach ($DBinvoice->items as $item) {
+            $items[] = InvoiceItem::make($item->name)->pricePerUnit($item->price);
+        }
 
 
+        $invoice = \LaravelDaily\Invoices\Invoice::make()
+            ->buyer($customer)
+            ->addItems($items)
+            ->currencySymbol('$')
+            ->currencyCode('USD');
 
-
-
-
+        return $invoice->stream();
+    }
 
 }
