@@ -95,6 +95,8 @@
                     <p class="text-gray-600">
                         ${{ number_format($payment->amount, 2) }}
                     </p>
+                    {{-- <input type="text" value="{{}}" wire:model.lazy="payment_id" hidden> --}}
+                    <button wire:click="refund({{$payment->id}})" class="lms-button bg-red-500 py-1" type="button">Refund</button>
                 </div>
             </li>
         @endforeach

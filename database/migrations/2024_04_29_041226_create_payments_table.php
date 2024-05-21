@@ -15,6 +15,13 @@ return new class extends Migration
             $table->id();
             $table->float('amount');
             $table->unsignedBigInteger('invoice_id');
+            //Stripe Payment
+            $table->string('stripe_payment_intent_id')->nullable();
+            $table->string('stripe_charge_id')->nullable();
+
+            $table->string('refund_id')->nullable();
+            $table->boolean('refunded')->default(false);
+
             $table->timestamps();
 
             $table->foreign('invoice_id')->references('id')->on('invoices')->onDelete('cascade');
@@ -27,5 +34,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('payments');
+        
     }
 };

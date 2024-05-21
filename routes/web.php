@@ -57,4 +57,7 @@ Route::post('stripe', [StripePaymentController::class, 'stripePayment'])->name('
 Route::get('success', [StripePaymentController::class, 'success'])->name('success');
 Route::get('cancel', [StripePaymentController::class, 'cancel'])->name('cancel');
 
+Route::post('/refund', [StripePaymentController::class, 'refund'])->name('refund');
+
+
 require __DIR__.'/auth.php';

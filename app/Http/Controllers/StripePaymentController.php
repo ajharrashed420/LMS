@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Stripe\StripeClient;
 use App\Models\Payment;
+use Stripe\StripeClient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class StripePaymentController extends Controller
@@ -50,36 +51,49 @@ class StripePaymentController extends Controller
         }
     }
 
-    public function success(Request $request) 
+public function success(Request $request) 
     {
-        $stripe = new StripeClient(env('STRIPE_SECRET'));
+       $stripe = new StripeClient(env('STRIPE_SECRET'));
         $sessionId = $request->get('session_id');
 
-        try {
-            $session = $stripe->checkout->sessions->retrieve($sessionId);
-            
-            // Access the amount and invoice_id from the session metadata or the payment intent.
-            $amount = $session->amount_total / 100; // Stripe stores amounts in cents.
-            $invoiceId = $session->metadata->invoice_id;
+    try {
+        // Retrieve the session from Stripe
+        $session = $stripe->checkout->sessions->retrieve($sessionId);
 
-            Payment::create([
-                'amount' => $amount,
-                'invoice_id' => $invoiceId,
-            ]);
+        $paymentIntentId = $session->payment_intent;
+  
+        $paymentIntent = $stripe->paymentIntents->retrieve($paymentIntentId);
 
-            flash()->addSuccess('Payment completed successfully!');
-            return redirect()->route('invoice-edit', $invoiceId);
+        $chargeId = $paymentIntent->latest_charge;
+
+        // Access the amount and invoice_id from the session metadata
+        $amount = $session->amount_total / 100; // Stripe stores amounts in cents.
+        $invoiceId = $session->metadata->invoice_id;
+
+        Payment::create([
+            'amount' => $amount,
+            'invoice_id' => $invoiceId,
+            'stripe_payment_intent_id' => $paymentIntentId,
+            'stripe_charge_id' => $chargeId,
+        ]);
+
+        flash()->addSuccess('Payment completed successfully!');
+        return redirect()->route('invoice-edit', $invoiceId);
+
         } catch (\Exception $e) {
-            // Handle the error appropriately here
-            flash()->addError('Payment verification failed!');
+            // Log the exception
+            Log::error('Payment verification failed: ' . $e->getMessage(), ['exception' => $e]);
+            flash()->addError('Payment verification failed: ' . $e->getMessage());
             return redirect()->route('cancel');
         }
     }
+
 
     public function cancel() 
     {
         flash()->addWarning('Payment not completed!');
         return redirect()->back();
     }
+
 }
 

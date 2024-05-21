@@ -11,6 +11,10 @@ class Payment extends Model
 
     protected $fillable = [
         'amount',
-        'invoice_id'
+        'invoice_id',
+        'stripe_payment_intent_id',
+        'stripe_charge_id',
+        'refund_id',
+        'refunded',
     ];
 }
